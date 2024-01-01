@@ -1,0 +1,14 @@
+@media (max-width: 950px) {
+  iframe {
+    width: 600px; /* Make the iframe responsive only for screens up to 768px wide */
+    height: 400px; /* Make the iframe responsive only for screens up to 768px wide */
+  }
+}
+
+@media (max-width: 768px) {
+  iframe {
+    width: 100%; /* Make the iframe responsive only for screens up to 768px wide */
+    height: 250px; /* Make the iframe responsive only for screens up to 768px wide */
+  }
+}
+

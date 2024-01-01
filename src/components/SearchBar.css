@@ -1,0 +1,16 @@
+/* src/components/SearchBar.css */
+.form-control:focus {
+    border-color: #8B4513 !important;
+    box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.25) !important;
+  }
+  
+  .form-control {
+    height: 50px; /* Set the desired height */
+    padding: 10px; /* Adjust the padding as needed */
+  }
+  
+  /* Style the search button */
+  .btn-danger {
+    height: 50px; /* Match the input height */
+    padding: 10px 20px; /* Adjust padding as needed */
+  }

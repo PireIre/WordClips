@@ -1,0 +1,11 @@
+/* Add this to your existing CSS file or create a new one for CoffeeBanner styles */
+@media (max-width: 768px) {
+    .navbar-brand {
+        display: none;
+    }
+
+    .d-flex {
+        flex-direction: column;
+    }
+  }
+  

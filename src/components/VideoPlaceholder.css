@@ -1,0 +1,14 @@
+.video-placeholder {
+  width: 90%;
+  max-width: 800px;
+  height: 450px;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 768px) {
+  .video-placeholder {
+    width: 350px;
+    height: 200px;
+  }
+}
