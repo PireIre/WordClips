@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState, useEffect, lazy } from 'react';
+import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import SearchBar from './components/SearchBar';
 import VideoPlayer from './components/VideoPlayer';
@@ -10,9 +10,7 @@ import FindWordLink from './components/FindWordLink';
 import ArrowLeft from './components/ArrowLeft';
 import ArrowRight from './components/ArrowRight';
 import './App.css';
-
-const LazyWordClips = lazy(() => import('./components/LazyWordClips'));
-
+import WordClipsData from '../WordClips.json';
 
 const App = () => {
   const [currentVideoId, setCurrentVideoId] = useState(null);
@@ -20,31 +18,23 @@ const App = () => {
   const [startTime, setStartTime] = useState(0);
   const [searchResults, setSearchResults] = useState([]);
   const [placeholderText, setPlaceholderText] = useState('Search for video');
-  const [wordClips, setWordClips] = useState(null);
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      // Import WordClips.json using dynamic import
-      const result = await import('./components/LazyWordClips');
-      setWordClips(result.default);
-    };
-
-    fetchData();
-  }, []);
+  const [wordClips, setWordClips] = useState(WordClipsData);
 
   const handleSearch = (searchTerm) => {
+
     const matchingClips = findMatchingClips(searchTerm);
     setSearchResults(matchingClips);
 
     if (matchingClips.length > 0) {
-      setCurrentVideoId(matchingClips[currentClipIndex].videoId);
-      setStartTime(Math.round(matchingClips[currentClipIndex].startTime));
+      setCurrentClipIndex(0);
+      setCurrentVideoId(matchingClips[0].videoId);
+      setStartTime(Math.round(matchingClips[0].startTime));
     } else {
       setPlaceholderText('404');
       setCurrentVideoId(null);
     }
   };
+
 
   const findMatchingClips = (searchTerm) => {
     const matchingClips = [];
