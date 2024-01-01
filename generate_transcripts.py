@@ -30,7 +30,7 @@ def get_video_ids(api_key, playlist_id):
     return video_ids
 
 # Your YouTube API Key
-api_key = "<API_KEY_HERE>"
+api_key = "AIzaSyD6c74kC76ggrCNhY17mclQPhP_I_HzULE"
 
 # Playlist ID examples
 playlist_ids = [
@@ -38,15 +38,6 @@ playlist_ids = [
     "PL4A1446D924B9C895",
     "PLTFCM8gfGxuFxE1KlR7l158LhuzaGzE7t",
     "PL8eLeVjI7DnB9MHx5sH1vfFKy2XS6bVJ-",
-    "PLoDR8L3mpuoEZdqxOs7uubZ2vQqLFEa3l",
-    "PLi3n6z1voQ1arCpQ89izFMwk7lsFrFnq0",
-    "PLxifdJ0YCDDyam1S2Myb88E5Eth-sNmXD",
-    "PLrAXtmErZgOdP_8GztsuKi9nrraNbKKp4",
-    "PLJ-u3QhJA36UyBZ44fryNPIqaZEinN6st",
-    "PL1WFx2Og5I4lkRgPWsrxEw6bH4hKn7Ge8",
-    "PLpaUYKaHUJ8l7twguEsGBWA_YfgxENvfx",
-    "PLD05UeKsUSbr_9TtQORU-cuHjoQUHq5nP",
-    "PLosaC3gb0kGCnvkRvp8aOF4OIuGaqDHG8",
 ]
 
 # Get video IDs from each playlist
