@@ -38,13 +38,15 @@ const App = () => {
 
   const findMatchingClips = (searchTerm) => {
     const matchingClips = [];
-
+  
+    const regex = new RegExp(`\\b${searchTerm.toLowerCase()}\\b`);
+  
     for (const clip of wordClips) {
       for (const videoId in clip) {
         const clips = clip[videoId];
         for (let i = 0; i < clips.length; i++) {
           if (
-            clips[i].text.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            regex.test(clips[i].text.toLowerCase()) &&
             !matchingClips.some((match) => match.videoId === videoId)
           ) {
             matchingClips.push({
@@ -56,9 +58,9 @@ const App = () => {
         }
       }
     }
-
+  
     return matchingClips;
-  };
+  };  
 
   const handleNavigateNext = () => {
     if (searchResults && currentClipIndex < searchResults.length - 1) {
