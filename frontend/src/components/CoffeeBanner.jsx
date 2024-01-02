@@ -14,7 +14,7 @@ const CoffeeBanner = () => {
       <Container
         fluid
         className="d-flex justify-content-between align-items-center"
-        style={{ margin: '10px' }}
+        style={{ margin: '5px' }}
       >
         <Navbar.Brand onClick={goToHomepage} style={{ cursor: 'pointer' }}>
           <img
