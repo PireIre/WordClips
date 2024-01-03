@@ -1,6 +1,8 @@
 import json
 import requests
 from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled, VideoUnavailable
+import math
+import re
 
 # Function to get video IDs from a YouTube playlist
 def get_video_ids(api_key, playlist_id):
@@ -35,9 +37,6 @@ api_key = "AIzaSyD6c74kC76ggrCNhY17mclQPhP_I_HzULE"
 # Playlist ID examples
 playlist_ids = [
     "PLriLgVg0-Kgzu0Y-Rz2ofUT1E53lUjh_T",
-    "PL4A1446D924B9C895",
-    "PLTFCM8gfGxuFxE1KlR7l158LhuzaGzE7t",
-    "PL8eLeVjI7DnB9MHx5sH1vfFKy2XS6bVJ-",
 ]
 
 # Get video IDs from each playlist
@@ -51,24 +50,35 @@ for playlist_id in playlist_ids:
         print(f"Error fetching video IDs for playlist {playlist_id}: {str(e)}")
 
 # Get transcripts
-transcripts = []
-total_words = 0
+word_index = {}
 
 for video_id in youtube_videos:
     try:
         transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
-        transcripts.append({ video_id: transcript })
-        total_words += sum(len(clip["text"].split()) for clip in transcript)
+        for clip in transcript:
+            words = re.findall(r'\b\w+\b', clip["text"].lower())
+            start_time = math.floor(clip["start"])
+            for word in words:
+                if word not in word_index:
+                    word_index[word] = []
+                # Check if the videoId already exists in the word index
+                video_exists = next((item for item in word_index[word] if item["videoId"] == video_id), None)
+                if video_exists:
+                    # If the videoId exists, append the start time to the existing start array
+                    video_exists["start"].append(start_time)
+                else:
+                    # If the videoId does not exist, create a new entry
+                    word_index[word].append({
+                        "videoId": video_id,
+                        "start": [start_time]
+                    })
     except (TranscriptsDisabled, VideoUnavailable):
         print(f"Error for video {video_id}: Transcripts are disabled, video is unavailable, private, or does not exist.")
     except Exception as e:
         print(f"Error fetching transcript for video {video_id}: {str(e)}")
 
-# Save transcripts to a JSON file
-with open('WordClips.json', 'w', encoding='utf-8') as file:
-    json.dump(transcripts, file, ensure_ascii=False, indent=2)
+# Save word index to a JSON file
+with open('YoutubeTranscripts.json', 'w', encoding='utf-8') as file:
+    json.dump(word_index, file, ensure_ascii=False, indent=2)
 
-# Print total number of transcripted videos and total number of words
-print(f"Total transcripted videos: {len(transcripts)}")
-print(f"Total number of words: {total_words}")
-print("Transcripts saved to WordClips.json")
+print("Word index saved to YoutubeTranscripts.json")
