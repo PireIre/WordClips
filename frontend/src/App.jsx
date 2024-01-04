@@ -4,12 +4,13 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import WordInRandomYouTubeVideo from './WordInRandomYouTubeVideo';
 import WordInSpecificYouTubeVideo from './WordInSpecificYouTubeVideo';
 import CoffeeBanner from './components/CoffeeBanner';
+import SwitchPageFooter from './components/SwitchPageFooter';
 
 
 const App = () => {
   return (
-    <>
-    <CoffeeBanner />
+    <div className="wordClips-app">
+    <CoffeeBanner/>
     <Router>
       <Routes>
         <Route path="/word-in-random-youtube-video" element={<WordInRandomYouTubeVideo />} />
@@ -17,7 +18,8 @@ const App = () => {
         <Route path="/" element={<Navigate to="/word-in-random-youtube-video" />} />
       </Routes>
     </Router>
-    </>
+    <SwitchPageFooter/>
+    </div>
   );
 };
 
