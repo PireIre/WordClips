@@ -4,7 +4,6 @@ import GroupSearchBar from './components/GroupSearchBar';
 import VideoPlayer from './components/VideoPlayer';
 import VideoPlaceholder from './components/VideoPlaceholder';
 import Header from './components/Header';
-import FindWordInRandomLink from './components/FindWordInRandomLink';
 import TimestampBar from './components/TimestampBar';
 import './App.css';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
@@ -48,7 +47,7 @@ const WordInSpecificYouTubeVideo = () => {
 
   return (
     <>
-      <div className="app-container">
+      <div className="wordClips-main-content">
         <Header />
         <GroupSearchBar onSearch={handleSearch} />
         <Row className="justify-content-center">
@@ -71,7 +70,6 @@ const WordInSpecificYouTubeVideo = () => {
           </Col>
         </Row>
       </div>
-      <FindWordInRandomLink /> 
     </>
   );
 };

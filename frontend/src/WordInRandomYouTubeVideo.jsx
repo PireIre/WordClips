@@ -6,7 +6,6 @@ import VideoPlayer from './components/VideoPlayer';
 import CoffeeBanner from './components/CoffeeBanner';
 import VideoPlaceholder from './components/VideoPlaceholder';
 import Header from './components/Header';
-import FindWordLink from './components/FindWordLink';
 import ArrowLeft from './components/ArrowLeft';
 import ArrowRight from './components/ArrowRight';
 import './App.css';
@@ -64,7 +63,7 @@ const handleSearch = (searchTerm) => {
 
   return (
     <>
-      <div className="app-container">
+      <div className="wordClips-main-content">
         <Header />
         <SearchBar onSearch={handleSearch} />
         <Row className="justify-content-center">
@@ -97,7 +96,6 @@ const handleSearch = (searchTerm) => {
           </Col>
         </Row>
       </div>
-       <FindWordLink /> 
     </>
   );
 };
