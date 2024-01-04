@@ -11,7 +11,7 @@ import ArrowLeft from './components/ArrowLeft';
 import ArrowRight from './components/ArrowRight';
 import './App.css';
 
-const Home = () => {
+const WordInRandomYouTubeVideo = () => {
   const [currentVideoId, setCurrentVideoId] = useState(null);
   const [currentClipIndex, setCurrentClipIndex] = useState(0);
   const [startTime, setStartTime] = useState([]);
@@ -88,4 +88,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default WordInRandomYouTubeVideo;
