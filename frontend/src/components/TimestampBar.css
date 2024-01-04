@@ -1,0 +1,75 @@
+.timestamp-bar {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    background-color: #f9f9f9;
+    height: 50px;
+    padding: 10px;
+    margin-top: 10px;
+    max-width: 800px;
+  }
+  
+  .timestamp-card {
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    color: black;
+    text-align: center;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .timestamp-card:hover {
+    background-color: #e6e6e6;
+  }
+  
+  .timestamp-card.selected {
+    background-color: #b02a37;
+  }
+  
+  .scroll-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .scroll-indicator i {
+    font-size: 24px;
+    color: #b02a37;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .scroll-indicator:hover i {
+    transform: translateX(5px);
+  }
+  
+  .timestamp-bar::-webkit-scrollbar {
+    height: 10px;
+  }
+  
+  .timestamp-bar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .timestamp-bar::-webkit-scrollbar-thumb {
+    background: #b02a37;
+  }  
+  
+  @media (max-width: 950px) {
+    .timestamp-bar {
+      max-width: 600px;
+    }
+  }
+  
+  @media (max-width: 750px) {
+    .timestamp-bar {
+      max-width: 350px;
+    }
+  }
+  
