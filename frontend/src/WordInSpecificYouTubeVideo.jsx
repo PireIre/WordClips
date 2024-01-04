@@ -1,116 +1,64 @@
-// src/App.js
 import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import SearchBar from './components/SearchBar';
+import GroupSearchBar from './components/GroupSearchBar';
 import VideoPlayer from './components/VideoPlayer';
-import CoffeeBanner from './components/CoffeeBanner';
 import VideoPlaceholder from './components/VideoPlaceholder';
 import Header from './components/Header';
 import FindWordInRandomLink from './components/FindWordInRandomLink';
-import ArrowLeft from './components/ArrowLeft';
-import ArrowRight from './components/ArrowRight';
+import TimestampBar from './components/TimestampBar';
 import './App.css';
-import WordClipsData from '../WordClips.json';
 
 const WordInSpecificYouTubeVideo = () => {
   const [currentVideoId, setCurrentVideoId] = useState(null);
-  const [currentClipIndex, setCurrentClipIndex] = useState(0);
   const [startTime, setStartTime] = useState(0);
-  const [searchResults, setSearchResults] = useState([]);
-  const [placeholderText, setPlaceholderText] = useState('Search for video');
-  const [wordClips, setWordClips] = useState(WordClipsData);
+  const [placeholderText, setPlaceholderText] = useState('Enter a for video URL and a specific word');
+  const [timestamps, setTimestamps] = useState([]);
 
-  const handleSearch = (searchTerm) => {
-
-    const matchingClips = findMatchingClips(searchTerm);
-    setSearchResults(matchingClips);
-
-    if (matchingClips.length > 0) {
-      setCurrentClipIndex(0);
-      setCurrentVideoId(matchingClips[0].videoId);
-      setStartTime(Math.round(matchingClips[0].startTime));
-    } else {
-      setPlaceholderText('404');
-      setCurrentVideoId(null);
-    }
-  };
-
-
-  const findMatchingClips = (searchTerm) => {
-    const matchingClips = [];
-  
-    const regex = new RegExp(`\\b${searchTerm.toLowerCase()}\\b`);
-  
-    for (const clip of wordClips) {
-      for (const videoId in clip) {
-        const clips = clip[videoId];
-        for (let i = 0; i < clips.length; i++) {
-          if (
-            regex.test(clips[i].text.toLowerCase()) &&
-            !matchingClips.some((match) => match.videoId === videoId)
-          ) {
-            matchingClips.push({
-              videoId,
-              startTime: clips[i].start.toString(),
-            });
-            break;
-          }
+  const handleSearch = (videoUrl, searchTerm) => {
+    setTimestamps([])
+    fetch(`http://localhost:3001/transcripts/search-word-in-specific-video?word=${searchTerm}&url=${videoUrl}`)
+      .then(response => response.json())
+      .then(data => {
+        const videoId = videoUrl.split('v=')[1];
+        if (data.length > 1) {
+          setTimestamps(data)
+          setStartTime(data[0].offset)
+          setCurrentVideoId(videoId);
         }
-      }
-    }
-  
-    return matchingClips;
-  };  
-
-  const handleNavigateNext = () => {
-    if (searchResults && currentClipIndex < searchResults.length - 1) {
-      const nextIndex = currentClipIndex + 1;
-      setCurrentClipIndex(nextIndex);
-      setCurrentVideoId(searchResults[nextIndex].videoId);
-      setStartTime(Math.round(searchResults[nextIndex].startTime));
-    }
-  };
-
-  const handleNavigatePrevious = () => {
-    const newIndex = Math.max(currentClipIndex - 1, 0);
-    setCurrentClipIndex(newIndex);
-    setCurrentVideoId(searchResults[newIndex].videoId);
-    setStartTime(Math.round(searchResults[newIndex].startTime));
+        else {
+          setCurrentVideoId(videoId)
+          setStartTime(data[0].offset)
+        }
+      })
+      .catch(error => {
+        setPlaceholderText('404')
+        setCurrentVideoId(null)
+        console.error('Error fetching search results:', error);
+      })
   };
 
   return (
     <>
-      <CoffeeBanner />
       <div className="app-container">
         <Header />
-        <SearchBar onSearch={handleSearch} />
+        <GroupSearchBar onSearch={handleSearch} />
         <Row className="justify-content-center">
-          <Col sm={1} xs={2} className="text-center">
-            {(currentVideoId && currentClipIndex >= 1) && (
-              <ArrowLeft clipIndex={currentClipIndex} onClick={handleNavigatePrevious} />
-            )}
-          </Col>
           <Col sm={10} xs={8} className="text-center">
             {currentVideoId ? (
-              <VideoPlayer
-                videoId={currentVideoId}
-                clipIndex={currentClipIndex}
-                startTime={startTime}
-                searchResults={searchResults}
-              />
+              <>
+                <VideoPlayer
+                  videoId={currentVideoId}
+                  startTime={startTime} 
+                />
+                {timestamps.length > 1 && <TimestampBar timestamps={timestamps} startTime={startTime} setStartTime={setStartTime} />}
+              </>
             ) : (
               <VideoPlaceholder placeholderText={placeholderText} />
             )}
           </Col>
-          <Col sm={1} xs={2} className="text-center">
-            {
-            ((currentVideoId && currentClipIndex >= 0) && (currentClipIndex + 1  !== searchResults.length ) ) && (
-              <ArrowRight clipIndex={currentClipIndex} onClick={handleNavigateNext} />
-            )}
-          </Col>
         </Row>
       </div>
-       <FindWordInRandomLink /> 
+      <FindWordInRandomLink /> 
     </>
   );
 };
