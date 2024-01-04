@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import SearchBar from './components/SearchBar';
 import VideoPlayer from './components/VideoPlayer';
@@ -10,64 +10,38 @@ import FindWordLink from './components/FindWordLink';
 import ArrowLeft from './components/ArrowLeft';
 import ArrowRight from './components/ArrowRight';
 import './App.css';
-import WordClipsData from '../WordClips.json';
 
 const Home = () => {
   const [currentVideoId, setCurrentVideoId] = useState(null);
   const [currentClipIndex, setCurrentClipIndex] = useState(0);
-  const [startTime, setStartTime] = useState(0);
+  const [startTime, setStartTime] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [placeholderText, setPlaceholderText] = useState('Search for video');
-  const [wordClips, setWordClips] = useState(WordClipsData);
 
   const handleSearch = (searchTerm) => {
+    fetch(`http://localhost:3001/transcripts/search-word-in-random-video?term=${searchTerm}`)
+      .then(response => response.json())
+      .then(data => {
+        setSearchResults(data);
 
-    const matchingClips = findMatchingClips(searchTerm);
-    setSearchResults(matchingClips);
-
-    if (matchingClips.length > 0) {
-      setCurrentClipIndex(0);
-      setCurrentVideoId(matchingClips[0].videoId);
-      setStartTime(Math.round(matchingClips[0].startTime));
-    } else {
-      setPlaceholderText('404');
-      setCurrentVideoId(null);
-    }
-  };
-
-
-  const findMatchingClips = (searchTerm) => {
-    const matchingClips = [];
-  
-    const regex = new RegExp(`\\b${searchTerm.toLowerCase()}\\b`);
-  
-    for (const clip of wordClips) {
-      for (const videoId in clip) {
-        const clips = clip[videoId];
-        for (let i = 0; i < clips.length; i++) {
-          if (
-            regex.test(clips[i].text.toLowerCase()) &&
-            !matchingClips.some((match) => match.videoId === videoId)
-          ) {
-            matchingClips.push({
-              videoId,
-              startTime: clips[i].start.toString(),
-            });
-            break;
-          }
+        if (data.length > 0) {
+          setCurrentClipIndex(0);
+          setCurrentVideoId(data[0].videoId);
+          setStartTime(data[0].start);
+        } else {
+          setPlaceholderText('404');
+          setCurrentVideoId(null);
         }
-      }
-    }
-  
-    return matchingClips;
-  };  
+      })
+      .catch(error => console.error('Error fetching search results:', error));
+  };
 
   const handleNavigateNext = () => {
     if (searchResults && currentClipIndex < searchResults.length - 1) {
       const nextIndex = currentClipIndex + 1;
       setCurrentClipIndex(nextIndex);
       setCurrentVideoId(searchResults[nextIndex].videoId);
-      setStartTime(Math.round(searchResults[nextIndex].startTime));
+      setStartTime(searchResults[nextIndex].start);
     }
   };
 
@@ -75,12 +49,11 @@ const Home = () => {
     const newIndex = Math.max(currentClipIndex - 1, 0);
     setCurrentClipIndex(newIndex);
     setCurrentVideoId(searchResults[newIndex].videoId);
-    setStartTime(Math.round(searchResults[newIndex].startTime));
+    setStartTime(searchResults[newIndex].start);
   };
 
   return (
     <>
-      <CoffeeBanner />
       <div className="app-container">
         <Header />
         <SearchBar onSearch={handleSearch} />
@@ -95,7 +68,7 @@ const Home = () => {
               <VideoPlayer
                 videoId={currentVideoId}
                 clipIndex={currentClipIndex}
-                startTime={startTime}
+                startTime={startTime[0]} // Pass the first start time
                 searchResults={searchResults}
               />
             ) : (
