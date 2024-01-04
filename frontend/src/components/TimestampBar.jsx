@@ -2,11 +2,14 @@ import React from 'react';
 import './TimestampBar.css';
 
 const TimestampBar = ({ timestamps, setStartTime, startTime }) => {
-  const formatTime = (offset) => {
-    const minutes = Math.floor(offset / 60);
-    const seconds = offset % 60;
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  };
+ const formatTime = (offset) => {
+     const hours = Math.floor(offset / 3600);
+     const minutes = Math.floor((offset % 3600) / 60);
+     const seconds = offset % 60;
+     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+   };
+   
+
 
   const handleClick = (timestamp) => {
     setStartTime(timestamp.offset);
