@@ -13,3 +13,11 @@ div.text-center.col-sm-10.col-8 {
   flex-direction: column;
   flex-wrap: wrap;
 }
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; /* Adjust the height based on your design */
+}
+

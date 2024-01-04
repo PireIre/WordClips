@@ -10,6 +10,9 @@ import FindWordLink from './components/FindWordLink';
 import ArrowLeft from './components/ArrowLeft';
 import ArrowRight from './components/ArrowRight';
 import './App.css';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 const WordInRandomYouTubeVideo = () => {
   const [currentVideoId, setCurrentVideoId] = useState(null);
@@ -17,24 +20,31 @@ const WordInRandomYouTubeVideo = () => {
   const [startTime, setStartTime] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [placeholderText, setPlaceholderText] = useState('Search for video');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSearch = (searchTerm) => {
-    fetch(`http://localhost:3001/transcripts/search-word-in-random-video?term=${searchTerm}`)
-      .then(response => response.json())
-      .then(data => {
-        setSearchResults(data);
+const handleSearch = (searchTerm) => {
+  setIsLoading(true);
 
-        if (data.length > 0) {
-          setCurrentClipIndex(0);
-          setCurrentVideoId(data[0].videoId);
-          setStartTime(data[0].start);
-        } else {
-          setPlaceholderText('404');
-          setCurrentVideoId(null);
-        }
-      })
-      .catch(error => console.error('Error fetching search results:', error));
-  };
+  fetch(`http://localhost:3001/transcripts/search-word-in-random-video?term=${searchTerm}`)
+    .then(response => response.json())
+    .then(data => {
+      setSearchResults(data);
+
+      if (data.length > 0) {
+        setCurrentClipIndex(0);
+        setCurrentVideoId(data[0].videoId);
+        setStartTime(data[0].start);
+      } else {
+        setPlaceholderText('404');
+        setCurrentVideoId(null);
+      }
+    })
+    .catch(error => console.error('Error fetching search results:', error))
+    .finally(() => {
+      setIsLoading(false);
+    });
+};
+  
 
   const handleNavigateNext = () => {
     if (searchResults && currentClipIndex < searchResults.length - 1) {
@@ -64,7 +74,11 @@ const WordInRandomYouTubeVideo = () => {
             )}
           </Col>
           <Col sm={10} xs={8} className="text-center">
-            {currentVideoId ? (
+            {isLoading ? (
+              <div className="spinner-container">
+                <FontAwesomeIcon icon={faSpinner} spin size="3x" color="#b02a37" />
+              </div>
+            ) : currentVideoId ? (
               <VideoPlayer
                 videoId={currentVideoId}
                 clipIndex={currentClipIndex}
