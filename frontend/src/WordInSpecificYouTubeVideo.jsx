@@ -8,6 +8,7 @@ import TimestampBar from './components/TimestampBar';
 import './App.css';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import config from './config';
 
 
 const WordInSpecificYouTubeVideo = () => {
@@ -21,8 +22,8 @@ const WordInSpecificYouTubeVideo = () => {
     setIsLoading(true);
     setTimestamps([]);
   
-    fetch(`http://localhost:3001/transcripts/search-word-in-specific-video?word=${searchTerm}&url=${videoUrl}`)
-      .then(response => response.json())
+    fetch(`${config.apiUrl}/transcripts/search-word-in-specific-video?word=${searchTerm}&url=${videoUrl}`)
+    .then(response => response.json())
       .then(data => {
         const videoId = videoUrl.split('v=')[1];
         if (data.length > 1) {

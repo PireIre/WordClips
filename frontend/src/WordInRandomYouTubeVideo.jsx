@@ -11,6 +11,7 @@ import ArrowRight from './components/ArrowRight';
 import './App.css';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import config from './config';
 
 
 const WordInRandomYouTubeVideo = () => {
@@ -24,7 +25,7 @@ const WordInRandomYouTubeVideo = () => {
 const handleSearch = (searchTerm) => {
   setIsLoading(true);
 
-  fetch(`http://localhost:3001/transcripts/search-word-in-random-video?term=${searchTerm}`)
+  fetch(`${config.apiUrl}/transcripts/search-word-in-random-video?term=${searchTerm}`)
     .then(response => response.json())
     .then(data => {
       setSearchResults(data);

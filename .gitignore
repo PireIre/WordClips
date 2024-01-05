@@ -29,3 +29,6 @@ dist-ssr
 # generated trascripted file
 # there is anothers script (importData.js) which later imports contents of the file to firebase
 YoutubeTranscripts.json
+
+# environment variables
+*.env*
