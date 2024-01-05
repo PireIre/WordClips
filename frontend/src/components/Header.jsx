@@ -2,6 +2,7 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import { useLocation } from 'react-router-dom';
+import './Header.css'; 
 
 const Header = () => {
   // Get the current path
@@ -25,8 +26,13 @@ const Header = () => {
     p: "Words in Any Action: Explore Your Vocabulary in Any Clip"
   };
 
+  // Inline style with !important
+  const headerStyle = {
+    paddingBottom: `10px !important`
+  };
+
   return (
-    <div className="py-5 text-center"> {/* Add padding and centering classes */}
+    <div className="py-5 text-center override">
       <Container>
         <h1>{h1}</h1>
         <p>{p}</p>
