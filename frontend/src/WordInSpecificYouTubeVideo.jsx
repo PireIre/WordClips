@@ -51,7 +51,7 @@ const WordInSpecificYouTubeVideo = () => {
         <Header />
         <GroupSearchBar onSearch={handleSearch} />
         <Row className="justify-content-center">
-          <Col sm={10} xs={8} className="text-center">
+          <Col className="text-center">
             {isLoading ? (
               <div className="spinner-container">
                 <FontAwesomeIcon icon={faSpinner} spin size="3x" color="#b02a37" />
