@@ -17,15 +17,8 @@
   height: 10vh;
 }
 
-div.text-center.col-sm-1.col-2 {
-  padding-top: 30px;
-}
-
-div.text-center.col-sm-10.col-8 {
-  display: flex !important;
-  align-content: space-around !important;
-  flex-direction: column;
-  flex-wrap: wrap;
+div.text-center.col-sm-1.col-6.order-sm-1.order-2 {
+  padding-top: 100px;
 }
 
 .spinner-container {

@@ -67,12 +67,12 @@ const handleSearch = (searchTerm) => {
         <Header />
         <SearchBar onSearch={handleSearch} />
         <Row className="justify-content-center">
-          <Col sm={1} xs={2} className="text-center">
+          <Col sm={{ span: 1, order: 1 }} xs={{ span: 6, order: 2 }} className="text-center">
             {(currentVideoId && currentClipIndex >= 1) && (
               <ArrowLeft clipIndex={currentClipIndex} onClick={handleNavigatePrevious} />
             )}
           </Col>
-          <Col sm={10} xs={8} className="text-center">
+          <Col sm={{ span: 10, order: 1 }} xs={{ span: 12, order: 1 }} className="text-center">
             {isLoading ? (
               <div className="spinner-container">
                 <FontAwesomeIcon icon={faSpinner} spin size="3x" color="#b02a37" />
@@ -88,7 +88,7 @@ const handleSearch = (searchTerm) => {
               <VideoPlaceholder placeholderText={placeholderText} />
             )}
           </Col>
-          <Col sm={1} xs={2} className="text-center">
+          <Col sm={{ span: 1, order: 1 }} xs={{ span: 6, order: 2 }} className="text-center">
             {
             ((currentVideoId && currentClipIndex >= 0) && (currentClipIndex + 1  !== searchResults.length ) ) && (
               <ArrowRight clipIndex={currentClipIndex} onClick={handleNavigateNext} />
