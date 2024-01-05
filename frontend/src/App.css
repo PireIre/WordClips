@@ -11,6 +11,7 @@
 
 .wordClips-main-content {
   min-height: 82vh;
+  overflow: scroll;
 }
 
 .wordClips-footer {
