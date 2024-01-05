@@ -22,10 +22,12 @@ const VideoPlaceholder = ({ placeholderText }) => {
   const backgroundImage = placeholderText === '404' ? (displayedPlaceholderImage[location.pathname].notFoundImg) : (displayedPlaceholderImage[location.pathname].instructionImg);
 
   return (
-    <div
-      className="video-placeholder"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
+    <div className="video-placeholder">
+      <div
+        className="video-image-placeholder"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
+      </div>
     </div>
   );
 };
