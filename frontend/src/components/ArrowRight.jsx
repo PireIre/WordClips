@@ -1,13 +1,13 @@
 // ArrowRight.jsx
 import React from 'react';
-import rightArrowImage from '../assets/arrow-right.png';
-import './ArrowRight.css'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import './Arrow.css';
 
 const ArrowRight = ({ onClick }) => {
   return (
-    <div className="arrow-right" onClick={onClick}>
-      <img src={rightArrowImage} alt="Right Arrow" />
+    <div className="wordClips-arrow" onClick={onClick}>
+      <FontAwesomeIcon icon={faArrowRight}/>
     </div>
   );
 };

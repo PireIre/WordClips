@@ -1,0 +1,9 @@
+.wordClips-arrow {
+  font-size: 2em; 
+  cursor: pointer;
+  color: #dc3545;
+}
+
+.wordClips-arrow:hover {
+  color: #bb2d3b; 
+}
