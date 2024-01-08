@@ -5,8 +5,15 @@ const routes = require('./routes'); // Adjust the path
 
 const app = express();
 
-// Enable CORS
-app.use(cors());
+const isProduction = process.env.NODE_ENV === 'production';
+
+// Enable CORS with dynamic origin configuration
+const corsOptions = {
+  origin: isProduction ? 'https://wordclips.org' : true, // Set to true for development
+};
+
+// Use CORS middleware with dynamic options
+app.use(cors(corsOptions));
 
 app.use('/', routes); // Use the routes
 
