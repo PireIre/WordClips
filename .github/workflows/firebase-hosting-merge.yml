@@ -11,8 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+
+      # Ensure the working directory is set to the app's directory
+      - name: Set working directory
+        run: cd wordClips/frontend
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Build the project
+      - name: Build
+        run: npm run build
+
+      # Deploy to Firebase Hosting
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_WORDCLIPS_24ACD }}'
