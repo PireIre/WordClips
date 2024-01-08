@@ -9,17 +9,17 @@ const Header = () => {
   const text = {
     "/word-in-specific-youtube-video": {
       h1: "Find a Word in a YouTube Video of Your Choice",
-      p: "Discover words in specific context: Explore your vocabulary in every clip."
+      p: "Explore Video Content: Uncover every instance of a particular word in your chosen YouTube video"
     },
     "/word-in-random-youtube-video": {
       h1: "Find a Word in a Random YouTube Video",
-      p: "Words in action: Explore your vocabulary in every clip."
+      p: "Word Exploration Made Easy: Find engaging YouTube clips featuring the word you're looking for"
     }
   };
 
   const { h1, p } = text[location.pathname] || {
     h1: "Find a Word in a YouTube Video",
-    p: "Words in any action: Explore your vocabulary in any clip."
+    p: "Words in any action: Explore vocabulary in any clip."
   };
 
   // Inline style with !important
