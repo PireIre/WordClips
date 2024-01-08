@@ -1,5 +1,10 @@
 // Load environment variables from .env file
-require('dotenv').config();
+const path = require('path');
+const dotenv = require('dotenv');
+
+// Specify the path to your .env file
+const envPath = path.resolve(__dirname, '../.env');
+dotenv.config({ path: envPath });
 
 const serviceAccount = {
   "type": "service_account",
