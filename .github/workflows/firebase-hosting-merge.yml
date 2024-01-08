@@ -19,10 +19,13 @@ jobs:
         run: ls
 
       - name: Set working directory to 'frontend'
-        run: cd WordClips/frontend
+        run: cd frontend
 
       - name: Print current working directory (after cd frontend)
         run: pwd
+
+      - name: Look around
+        run: ls
 
       # Install dependencies
       - name: Install dependencies
