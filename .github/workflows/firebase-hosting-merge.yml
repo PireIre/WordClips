@@ -12,10 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # Ensure the working directory is set to the app's directory
-      - name: Set working directory
+      - name: Print current working directory (root)
+        run: pwd
+
+      - name: Set working directory to 'frontend'
         run: cd frontend
 
+      - name: Print current working directory (after cd frontend)
+        run: pwd
+        
       # Install dependencies
       - name: Install dependencies
         run: npm install
