@@ -1,29 +1,25 @@
-// Header.jsx
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import { useLocation } from 'react-router-dom';
-import './Header.css'; 
+import './Header.css';
 
 const Header = () => {
-  // Get the current path
   const location = useLocation();
 
-  // Define the text for different paths
   const text = {
     "/word-in-specific-youtube-video": {
-      h1: "Find a word in a YouTube video of your choice",
-      p: "Words in specific action: Explore Your Vocabulary in Every Clip"
+      h1: "Find a Word in a YouTube Video of Your Choice",
+      p: "Discover words in specific context: Explore your vocabulary in every clip."
     },
     "/word-in-random-youtube-video": {
-      h1: "Find a word in a random YouTube video",
-      p: "Words in Action: Explore Your Vocabulary in Every Clip"
+      h1: "Find a Word in a Random YouTube Video",
+      p: "Words in action: Explore your vocabulary in every clip."
     }
   };
 
-  // Get the text for the current path or use a default value
   const { h1, p } = text[location.pathname] || {
-    h1: "Find a word in a YouTube video",
-    p: "Words in Any Action: Explore Your Vocabulary in Any Clip"
+    h1: "Find a Word in a YouTube Video",
+    p: "Words in any action: Explore your vocabulary in any clip."
   };
 
   // Inline style with !important

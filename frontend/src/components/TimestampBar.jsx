@@ -9,8 +9,6 @@ const TimestampBar = ({ timestamps, setStartTime, startTime }) => {
      return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
    };
    
-
-
   const handleClick = (timestamp) => {
     setStartTime(timestamp.offset);
   };
