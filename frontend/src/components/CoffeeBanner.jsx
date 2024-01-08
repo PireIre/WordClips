@@ -1,7 +1,7 @@
 // src/components/CoffeeBanner.js
 import React from 'react';
 import { Navbar, Container, Button } from 'react-bootstrap';
-import logo from '../assets/logo.png';
+import logo from '../assets/Logo.png';
 import './CoffeeBanner.css'
 
 const CoffeeBanner = () => {
