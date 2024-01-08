@@ -12,20 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Print current working directory (root)
-        run: pwd
-
-      - name: Look around
-        run: ls
-
-      - name: Set working directory to 'frontend'
-        run: cd frontend
-
-      - name: Print current working directory (after cd frontend)
-        run: pwd
-
-      - name: Look around
-        run: ls
+      - name: Open frontend directory
+        working-directory: frontend
+        run: |
+          ls -la
 
       # Install dependencies
       - name: Install dependencies
