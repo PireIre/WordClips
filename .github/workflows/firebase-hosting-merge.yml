@@ -15,12 +15,15 @@ jobs:
       - name: Print current working directory (root)
         run: pwd
 
+      - name: Look around
+        run: ls
+
       - name: Set working directory to 'frontend'
-        run: cd frontend
+        run: cd WordClips/frontend
 
       - name: Print current working directory (after cd frontend)
         run: pwd
-        
+
       # Install dependencies
       - name: Install dependencies
         run: npm install
