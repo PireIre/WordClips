@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { db } = require('./firebase');
 const { YoutubeTranscript } = require('youtube-transcript');
+const {
+  info,
+  error,
+} = require("firebase-functions/logger");
 
 const collectionName = 'transcripts_test3'; // Adjust the collection name
 
@@ -10,12 +14,15 @@ router.get('/transcripts/search-word-in-random-video', async (req, res) => {
       const searchTerm = req.query.term.toLowerCase(); // Extract search term from query parameters
       const page = req.query.page || 1; // Extract page number from query parameters, default to 1
       const pageSize = 100; // Set your desired page size
-  
+      
+      info(`Search term: ${searchTerm} was used for "search-word-in-random-video`);
+
       const matchingClips = await findMatchingClipsInFirestore(searchTerm, page, pageSize);
       res.json(matchingClips);
 
     } catch (error) {
       console.error(error);
+      error(error)
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
@@ -24,6 +31,8 @@ router.get('/transcripts/search-word-in-random-video', async (req, res) => {
     try {
       const searchWord = req.query.word.toLowerCase(); 
       const searchUrl = req.query.url; 
+
+      info(`Search word: ${searchWord} was used for video with this ID:${searchUrl} `);
   
       // Check if searchUrl is provided
       if (!searchUrl) {
@@ -46,10 +55,12 @@ router.get('/transcripts/search-word-in-random-video', async (req, res) => {
         res.json(responseData);
       } catch (fetchError) {
         console.error(fetchError);
+        error(fetchError);
         res.status(500).json({ error: 'Error fetching transcript data' });
       }
     } catch (error) {
       console.error(error);
+      error(error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
