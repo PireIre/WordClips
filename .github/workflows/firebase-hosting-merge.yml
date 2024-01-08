@@ -14,7 +14,7 @@ jobs:
 
       # Ensure the working directory is set to the app's directory
       - name: Set working directory
-        run: cd wordClips/frontend
+        run: cd frontend
 
       # Install dependencies
       - name: Install dependencies
