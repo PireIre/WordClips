@@ -18,14 +18,20 @@ const WordInSpecificYouTubeVideo = () => {
   const [timestamps, setTimestamps] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const youtubeUrlToVideoIdParser = (url) => {
+    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[7].length === 11) ? match[7] : false;
+  };
+  
   const handleSearch = (videoUrl, searchTerm) => {
     setIsLoading(true);
+    const videoId = youtubeUrlToVideoIdParser(videoUrl);
+
     setTimestamps([]);
-  
-    fetch(`${config.apiUrl}/transcripts/search-word-in-specific-video?word=${searchTerm}&url=${videoUrl}`)
+    fetch(`${config.apiUrl}/transcripts/search-word-in-specific-video?word=${searchTerm}&url=${videoId}`)
     .then(response => response.json())
       .then(data => {
-        const videoId = videoUrl.split('v=')[1];
         if (data.length > 1) {
           setTimestamps(data);
           setStartTime(data[0].offset);
