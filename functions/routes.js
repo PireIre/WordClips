@@ -3,7 +3,7 @@ const router = express.Router();
 const { db } = require('./firebase');
 const { YoutubeTranscript } = require('youtube-transcript');
 
-const collectionName = 'transcripts_test2'; // Adjust the collection name
+const collectionName = 'transcripts_test3'; // Adjust the collection name
 
 router.get('/transcripts/search-word-in-random-video', async (req, res) => {
     try {
