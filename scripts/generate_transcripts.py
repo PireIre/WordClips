@@ -32,7 +32,7 @@ def get_video_ids(api_key, playlist_id):
     return video_ids
 
 # Your YouTube API Key
-api_key = "AIzaSyD6c74kC76ggrCNhY17mclQPhP_I_HzULE"
+api_key = "<YOUR_API_KEY>"
 
 # Playlist ID examples
 playlist_ids = [
